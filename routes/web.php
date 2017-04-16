@@ -31,3 +31,4 @@ Route::get('sstudent/{id}', 'newController@getStudent');
 
 Route::get('product/{pid}', 'newController@tracking');
 Route::get('productd/{pid}', 'newController@trackingProduct');
+Route::get('api/product', 'newController@trackingRequest');

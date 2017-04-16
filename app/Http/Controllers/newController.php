@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\newController;
+use Illuminate\Http\Request;
 
 class newController extends BaseController
 {
@@ -44,8 +45,10 @@ class newController extends BaseController
 
     }
 
-    public function trackingProduct($pid)
+    public function trackingProduct($pid, $input)
     {
+
+      //deprecated 4/16/2017
         $product = DB::table('tracking')->where('pid', $pid)->get();
 
         // echo var_dump($product);
@@ -73,6 +76,17 @@ class newController extends BaseController
 // echo $array->{0};
 
     }
+
+    public function trackingRequest(Request $request)
+    {
+      $pid = $request->input('pid');
+      $product = DB::table('tracking')->where('pid', $pid)->get();
+      $array = json_decode(json_encode($product), True);
+      $out = array_values($array);
+      echo json_encode($out);
+
+    }
+
 
 }
 
