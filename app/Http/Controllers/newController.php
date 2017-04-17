@@ -71,21 +71,28 @@ class newController extends BaseController
  //      //  echo $product->name;
  // echo "\n";
 
- $out = array_values($array);
- echo json_encode($out);
-// echo $array->{0};
+         $out = array_values($array);
+         echo json_encode($out);
 
     }
 
     public function trackingRequest(Request $request)
     {
-      $pid = $request->input('pid');
-      $product = DB::table('tracking')->where('pid', $pid)->get();
-      $array = json_decode(json_encode($product), True);
-      $out = array_values($array);
-      echo json_encode($out);
+
+            $pid = $request->input('pid'); //taking param pid from request
+            $productName = DB::table('productdetails')->where('pid', $pid)->get();
+            $product = DB::table('tracking')->where('pid', $pid)->get();
+            $array = json_decode(json_encode($product), True);
+            $out = array_values($array);
+
+            // echo var_dump($productName);
+            echo "{ \"productDetails\": ".json_encode(array_values(json_decode(json_encode($productName), True))).", ";
+            echo "\"trackingDetails\":".json_encode($out);
+            echo  "}";
+
 
     }
+
 
 
 }
